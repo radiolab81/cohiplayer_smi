@@ -21,4 +21,6 @@ and with ./cohiplayer_smi_tui a version with TUI based on ncurses. This provides
 
 ![main2](https://github.com/radiolab81/cohiplayer_smi/blob/main/www/fb2.jpg)
 
-The parameters for sample rate and band shift are taken from the extended WAV header or the filename of typical COHIRADIA recording files.
+The parameters for sample rate and band shift are taken from the extended WAV header or the filename of typical COHIRADIA recording files (https://www.cohiradia.org/de/archiv/ or https://www.radiomuseum.org/dsp_cohiradia.cfm#recording).
+
+![main3](https://github.com/radiolab81/cohiplayer_smi/blob/main/www/player.jpg)
