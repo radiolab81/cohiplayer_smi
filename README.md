@@ -27,9 +27,12 @@ The parameters for sample rate and band shift are taken from the extended WAV he
 
 Transmission over smisdr-device is done via DMA (Raspberry Pi with DAC connected to Secondary Memory Interface), there is usually enough computing power available to install this player directly on the smisdr.
 
-![main4](https://github.com/radiolab81/cohiplayer_smi/blob/main/www/htop_cohi_on_rpi.jpg)
+![main4](https://github.com/radiolab81/smisdr/blob/main/www/schematic.jpg)
 
-As you can see, there is almost no CPU load in the overall system during playback. This system is therefore suitable for building very small and portable players for the COHIRADIA project (or similar SDR-based content).
+
+![main5](https://github.com/radiolab81/cohiplayer_smi/blob/main/www/htop_cohi_on_rpi.jpg)
+
+As you can see, there is almost no CPU load in the overall system during playback. This system is therefore suitable for building very small and portable players for the COHIRADIA project (or similar SDR-based content). If required, the reverse direction, i.e., recording COHIRADIA files in the desired bit depth of the SMI bus (8-16 bits), can also be implemented quickly.
 
 ### repo-structure
 - `README.md`: This file
