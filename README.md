@@ -30,3 +30,11 @@ Transmission over smisdr-device is done via DMA (Raspberry Pi with DAC connected
 ![main4](https://github.com/radiolab81/cohiplayer_smi/blob/main/www/htop_cohi_on_rpi.jpg)
 
 As you can see, there is almost no CPU load in the overall system during playback. This system is therefore suitable for building very small and portable players for the COHIRADIA project (or similar SDR-based content).
+
+### repo-structure
+- `README.md`: This file
+- `cohiplayer_smi_cmdline.cpp`: a vy simple command-line version of cohiradia player. You can build it with `build_cohiplayers.sh`
+- `cohiplayer_smi_tui.cpp`: TUI/ncurses-version of cohiradia player. You can build it with `build_cohiplayers.sh`
+- `COHI_fft_check_8.py`: Debug tool to stream directly from the player to an FFT for displaying the RF spectrum (8 Bit Version).
+- `COHI_fft_check_16.py`: Debug tool to stream directly from the player to an FFT for displaying the RF spectrum (16 Bit Version).
+
