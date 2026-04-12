@@ -24,3 +24,9 @@ and with ./cohiplayer_smi_tui a version with TUI based on ncurses. This provides
 The parameters for sample rate and band shift are taken from the extended WAV header or the filename of typical COHIRADIA recording files (https://www.cohiradia.org/de/archiv/ or https://www.radiomuseum.org/dsp_cohiradia.cfm#recording).
 
 ![main3](https://github.com/radiolab81/cohiplayer_smi/blob/main/www/player.jpg)
+
+Transmission over smisdr-device is done via DMA (Raspberry Pi with DAC connected to Secondary Memory Interface), there is usually enough computing power available to install this player directly on the smisdr.
+
+![main4](https://github.com/radiolab81/cohiplayer_smi/blob/main/www/htop_cohi_on_rpi.jpg)
+
+As you can see, there is almost no CPU load in the overall system during playback. This system is therefore suitable for building very small and portable players for the COHIRADIA project (or similar SDR-based content).
