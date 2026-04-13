@@ -154,7 +154,8 @@ std::string run_dsp_engine(fs::path currentPath, std::string filename, int sock,
                     if (mag > block_peak) block_peak = mag;
                 }
                 peak_hold = 0.95f * peak_hold + 0.05f * block_peak;
-                current_gain = 0.98f * current_gain + 0.02f * ((bitScale * 0.85f) / (peak_hold + 0.0001f));
+                //current_gain = 0.98f * current_gain + 0.02f * ((bitScale * 0.85f) / (peak_hold + 0.0001f));
+                current_gain = 0.98f * current_gain + 0.02f * ((bitScale * 0.65f) / (peak_hold + 0.0001f));
 
                 msresamp_crcf_execute(resamp, x.data(), blockSize, y.data(), &nw);
 
@@ -189,7 +190,7 @@ std::string run_dsp_engine(fs::path currentPath, std::string filename, int sock,
 
                 for (unsigned int j = 0; j < nw; j++) {
                     float c = nco_crcf_cos(vco), s = nco_crcf_sin(vco); nco_crcf_step(vco);
-                    float hf = (y[j].real * c - y[j].imag * s) * current_gain;
+                    float hf = (y[j].real * c - y[j].imag * s) * (current_gain * 0.24f);
                     if (hf > bitScale) hf = bitScale; else if (hf < -bitScale) hf = -bitScale;
                     netBuf[j] = (int16_t)hf;
                 }
