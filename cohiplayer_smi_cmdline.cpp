@@ -118,7 +118,7 @@ int main(int argc, char* argv[]) {
                     float s = nco_crcf_sin(vco);
                     nco_crcf_step(vco);
 
-                    float hf_val = (y[j].real * c - y[j].imag * s) * current_gain;
+                    float hf_val = (y[j].real * c - y[j].imag * s) * (current_gain * 0.24f);
 
                     // Dynamisches Clipping je nach Bitbreite
                     if (hf_val > bitScale) hf_val = bitScale;
