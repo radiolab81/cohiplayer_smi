@@ -38,6 +38,7 @@ As you can see, there is almost no CPU load in the overall system during playbac
 - `README.md`: This file
 - `cohiplayer_smi_cmdline.cpp`: a vy simple command-line version of cohiradia player. You can build it with `build_cohiplayers.sh`
 - `cohiplayer_smi_tui.cpp`: TUI/ncurses-version of cohiradia player. You can build it with `build_cohiplayers.sh`
+- `cohiplayer_smi_tui_mt.cpp`: TUI/ncurses-multithread version of cohiradia player. You can build it with `build_cohiplayers.sh`
 - `COHI_fft_check_8.py`: Debug tool to stream directly from the player to an FFT for displaying the RF spectrum (8 Bit Version).
 - `COHI_fft_check_16.py`: Debug tool to stream directly from the player to an FFT for displaying the RF spectrum (16 Bit Version).
 
