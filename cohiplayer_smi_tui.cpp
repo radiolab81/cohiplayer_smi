@@ -7,6 +7,7 @@
 #include <ncurses.h>
 #include <cmath>
 #include <arpa/inet.h>
+#include <netinet/tcp.h>
 #include <sys/socket.h>
 #include <unistd.h>
 #include <liquid/liquid.h>
@@ -138,6 +139,8 @@ std::string run_dsp_engine(fs::path currentPath, std::string filename, int sock,
             const size_t blockSize = 1024;
             std::vector<int16_t> readBuf(blockSize * 2);
             size_t outSize = (size_t)(blockSize * upRate) + 512;
+            std::vector<int8_t> nb8(outSize);
+
             std::vector<liquid_float_complex> x(blockSize), y(outSize);
             std::vector<int16_t> netBuf(outSize);
             unsigned int nw;
@@ -197,7 +200,6 @@ std::string run_dsp_engine(fs::path currentPath, std::string filename, int sock,
 
                 ssize_t snt;
                 if (targetBits == 8) {
-                    std::vector<int8_t> nb8(nw);
                     for(unsigned int k=0; k<nw; k++) nb8[k] = (int8_t)netBuf[k];
                     snt = send(sock, nb8.data(), nw, MSG_NOSIGNAL);
                 } else {
@@ -269,6 +271,10 @@ int main(int argc, char* argv[]) {
                 inet_pton(AF_INET, targetIP.c_str(), &srv.sin_addr);
 
                 if (connect(sock, (struct sockaddr *)&srv, sizeof(srv)) >= 0) {
+                    int flag = 1;
+                    if (setsockopt(sock, IPPROTO_TCP, TCP_NODELAY, (char *)&flag, sizeof(int)) < 0) {
+                        perror("TCP_NODELAY konnte nicht gesetzt werden");
+                    }
                     std::string nxt = entries[highlight].name;
                     while (!nxt.empty()) {
                         nxt = run_dsp_engine(currentPath, nxt, sock, targetBits);
