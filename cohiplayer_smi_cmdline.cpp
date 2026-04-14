@@ -5,6 +5,7 @@
 #include <vector>
 #include <cmath>
 #include <arpa/inet.h>
+#include <netinet/tcp.h>
 #include <sys/socket.h>
 #include <unistd.h>
 #include <liquid/liquid.h>
@@ -30,6 +31,10 @@ int main(int argc, char* argv[]) {
     if (!file) { std::cerr << "Fehler: Datei nicht gefunden!" << std::endl; return 1; }
 
     int sock = socket(AF_INET, SOCK_STREAM, 0);
+
+    int flag = 1;
+    setsockopt(sock, IPPROTO_TCP, TCP_NODELAY, (char *)&flag, sizeof(int));
+
     struct sockaddr_in serv_addr = { .sin_family = AF_INET, .sin_port = htons(1234) };
     inet_pton(AF_INET, argv[2], &serv_addr.sin_addr);
 
@@ -95,6 +100,7 @@ int main(int argc, char* argv[]) {
 
             // Wir nutzen int16_t für das Netzwerk, um Bitbreiten > 8 zu unterstützen
             std::vector<int16_t> netBuf(outSize);
+            std::vector<int8_t> netBuf8(outSize);
             unsigned int nw;
 
             while (file.read(reinterpret_cast<char*>(readBuf.data()), blockSize * 4)) {
@@ -130,7 +136,6 @@ int main(int argc, char* argv[]) {
                 // Wenn 8 Bit gewählt, senden wir nur Bytes, sonst Shorts (2 Bytes pro Sample)
                 if (targetBits == 8) {
                     // Konvertierung zurück auf 8-bit für Kompatibilität mit fl2k_tcp 8-bit
-                    std::vector<int8_t> netBuf8(nw);
                     for(unsigned int k=0; k<nw; k++) netBuf8[k] = (int8_t)netBuf[k];
                     send(sock, netBuf8.data(), nw, 0);
                 } else {
